@@ -4,9 +4,25 @@ from django.contrib.auth.models import User
 from .models import (
     Company, Employee, 
     Device, DeviceLog, 
-    # CustomUser, 
+    CustomUser, 
     DeviceLogReturn
 )
+class CustomUserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email']
+        labels = {
+            'username' : 'Username',
+            'email'    : 'email',
+        }
+        
+    # set placeholder by overriding    
+    def __init__(self, *args, **kwargs):
+        super(CustomUserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = 'Enter username'
+        self.fields['email'].widget.attrs['placeholder'] = 'Enter email'
+
+
 class CompanyForm(forms.ModelForm):
     class  Meta:
         model = Company

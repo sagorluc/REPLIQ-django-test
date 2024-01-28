@@ -4,14 +4,34 @@ from .models import (
     # CustomUser, 
     Company, Employee, 
     Device, DeviceLog, 
-    DeviceLogReturn
+    DeviceLogReturn,
+    CustomUser
 )
 from .forms import (
     CompanyForm, EmployeeForm, 
     DeviceForm, DeviceLogForm, 
-    DeviceLogReturnForm
+    DeviceLogReturnForm,
+    CustomUserForm
 )
 # Create your views here.
+
+def create_user_view(request):
+    form = CustomUserForm()
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            msg = "User has been created successfully"    
+            template = 'user_forms.html'
+            return render(request, template, {'msg': msg})
+        else:
+            HttpResponse(request, 'Form is not valid')
+            
+    else:
+        form = CustomUserForm()    
+    template = 'user_forms.html'
+    contex_data = {'forms': form}     
+    return render(request, template, contex_data)
 
 def show_all_data(request):
     all_obj = DeviceLog.objects.all()
@@ -29,7 +49,7 @@ def company_view(request):
         form = CompanyForm(request.POST)
         if form.is_valid():
             form.save()
-            msg = "Company data has been save successfully"    
+            msg = "Company data has been created successfully"    
             template = 'company_forms.html'
             return render(request, template, {'msg': msg})
         else:
@@ -47,7 +67,7 @@ def employee_view(request):
         form = EmployeeForm(request.POST)
         if form.is_valid():
             form.save()
-            msg = "Enployee data has been save successfully"
+            msg = "Enployee data has been created successfully"
             template = 'employee_forms.html'
             return render(request, template, {'msg':msg})
         else:
@@ -55,7 +75,7 @@ def employee_view(request):
             
     else:
         form = EmployeeForm() 
-    msg = "Enployee data has been save successfully"    
+    msg = "Enployee data has been created successfully"    
     template = 'employee_forms.html'
     contex_data = {'forms': form,}     
     return render(request, template, contex_data)
@@ -66,7 +86,7 @@ def device_view(request):
         form = DeviceForm(request.POST)
         if form.is_valid():
             form.save()
-            msg = "Device data has been save successfully"
+            msg = "Device data has been created successfully"
             template = 'device_forms.html'
             return render(request, template, {'msg':msg})
         else:
@@ -84,7 +104,7 @@ def devicelog_view(request):
         form = DeviceLogForm(request.POST)
         if form.is_valid():
             form.save()
-            msg = "DeviceOut data has been save successfully"
+            msg = "DeviceOut data has been created successfully"
             template = 'devicelog_forms.html'
             return render(request, template, {'msg':msg})
         else:
@@ -116,7 +136,7 @@ def devicelogreturn_view(request):
                 # data = form.save(commit=False)
                 form.return_status = True
                 form.save()
-                msg = "Devicereturn data has been save successfully"
+                msg = "Devicereturn data has been created successfully"
             else:
                 msg = "Data does not match"
                

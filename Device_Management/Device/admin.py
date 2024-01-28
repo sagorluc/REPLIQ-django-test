@@ -2,17 +2,17 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from Device.models import (Company, Device, 
                            DeviceLog, Employee, 
-                           # CustomUser, 
+                           CustomUser, 
                            DeviceLogReturn
                         )
 
-# class CustomUserAdmin(admin.ModelAdmin):
-#     list_display = [
-#         'id', 
-#         'username', 
-#         'email'
-#     ]
-#     ordering     = ['-id']
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = [
+        'id', 
+        'username', 
+        'email'
+    ]
+    ordering     = ['-id']
 
 class CompanyAdmin(admin.ModelAdmin):
     list_display = [
@@ -61,7 +61,7 @@ class DeviceLogReturnAdmin(admin.ModelAdmin):
     
 
 # Register all the admin  
-# admin.site.register(CustomUser, CustomUserAdmin)  
+admin.site.register(CustomUser, CustomUserAdmin)  
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Device, DeviceAdmin)

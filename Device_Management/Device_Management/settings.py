@@ -22,7 +22,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Custom username
-# AUTH_USER_MODEL = 'Device.CustomUser'
+AUTH_USER_MODEL = 'Device.CustomUser'
 
 
 # Application definition
