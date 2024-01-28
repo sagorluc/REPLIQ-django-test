@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block title %}Devicelog Data{% endblock title %}
+{% load static %}
+{% block join_css %}
+<link rel="stylesheet" href="{% static 'css/show_crud.css' %}">
+{% endblock join_css %}
+
+
+{% block body %}
+
+<div style="margin-bottom: 70px;">
+<h1 class="text-center" style="margin-top: 10px;">
+  Returned Data
+</h1>
+
+  <table class="table table-success table-striped" style="width:95%; margin: auto; text-align: center; margin-top: 50px;">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Device</th>
+        <th scope="col">Enployee</th>
+        <th scope="col">Check Out Time</th>
+        <th scope="col">Return Time</th>
+        <th scope="col">Return Status</th>
+        <th scope="col">Condition When Out</th>        
+        <th scope="col">Condition When Returned</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj, obj1 in all_objs_zip %}
+      <tr>      
+          <th scope="row">{{ obj.id }}</th>
+          <td>{{ obj.device}}</td>
+          <td>{{ obj.employee }}</td>
+          <td>{{ obj.check_out_time }}</td>
+          <td>
+              {% if obj1.return_time %} 
+                 <span style="color: green;">{{obj1.return_time}}</span>
+              {% else %}
+                 <span style="color: red;">None</span>
+              {% endif %}         
+          </td>
+          <td style="color: red;">
+              {% if obj1.return_status %} 
+                 <span style="color: green;">Returned</span>
+              {% else %}
+                 <span style="color: red;">Not Returned</span>
+              {% endif %}                    
+          </td>
+          <td>{{ obj.condition_when_out }}</td>
+          <td style="color: red;">
+            {% if obj1.condition_when_returned %} 
+               <span style="color: green;">Same as given</span>
+            {% else %}
+               <span style="color: red;">None</span>
+            {% endif %}         
+          </td>
+      </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div style="margin-bottom: 70px;">
+<h1 class="text-center" style="margin-top: 10px;">
+  None Return Data
+</h1>
+
+  <table class="table table-success table-striped" style="width:95%; margin: auto; text-align: center; margin-top: 50px;">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Device</th>
+        <th scope="col">Enployee</th>
+        <th scope="col">Check Out Time</th>
+        <th scope="col">Return Time</th>
+        <th scope="col">Return Status</th>
+        <th scope="col">Condition When Out</th>        
+        <th scope="col">Condition When Returned</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in all_objs %}
+      <tr>      
+          <th scope="row">{{ obj.id }}</th>
+          <td>{{ obj.device}}</td>
+          <td>{{ obj.employee }}</td>
+          <td>{{ obj.check_out_time }}</td>
+          <td>
+              {% if obj.return_time %} 
+                 <span style="color: green;">Done</span>
+              {% else %}
+                 <span style="color: red;">None</span>
+              {% endif %}         
+          </td>
+          <td style="color: red;">
+              {% if obj.return_status %} 
+                 <span style="color: green;">Returned</span>
+              {% else %}
+                 <span style="color: red;">Not Returned</span>
+              {% endif %}                    
+          </td>
+          <td>{{ obj.condition_when_out }}</td>
+          <td style="color: red;">
+            {% if obj.condition_when_returned %} 
+               <span style="color: green;">Done</span>
+            {% else %}
+               <span style="color: red;">None</span>
+            {% endif %}         
+          </td>
+      </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

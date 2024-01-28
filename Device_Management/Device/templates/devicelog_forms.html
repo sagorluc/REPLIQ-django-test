@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}DeviceLog{% endblock title %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <h1 style="width: 53%; margin: auto;text-align: left; padding: 15px; font-size: 40px">
+        Create Device Out
+    </h1>
+    <br>
+    <h1 style="color: green; width: 53%; margin: auto;text-align: left; padding: 15px; font-size: 40px">
+        {{msg|capfirst}}
+    </h1>
+    <br>
+    
+    <div style="width: 50%; margin: auto; margin-bottom: 100px;">
+     
+        <form method= 'POST' >
+            {% csrf_token %}
+
+            {{forms|crispy}}
+            <input class="btn btn-primary" type="submit" value="Create">
+
+        </form>
+
+    </div>
+{% endblock body %}
